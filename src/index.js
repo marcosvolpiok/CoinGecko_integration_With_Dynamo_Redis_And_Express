@@ -2,6 +2,7 @@ const express = require('express'),
     morgan = require('morgan'),
     app = express(),
     cors = require('cors');
+const indexRoutes = require('./routes/index');
 
 app.use(express.json());
 
@@ -13,6 +14,9 @@ app.use(cors());
 
 // middlewares
 app.use(morgan('dev'));
+
+//Routes
+app.use('/', indexRoutes);
 
 // error handler
 app.use(function(err, req, res, next){
