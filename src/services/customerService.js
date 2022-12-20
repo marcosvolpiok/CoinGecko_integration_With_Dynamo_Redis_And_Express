@@ -37,13 +37,15 @@ class cartProductService {
     }
 
     login = async (req, res) => {
-        const customer = await this.customerRepository.findOne({where: {mail: req.body.mail}});
+        const existingUser = await this.customerRepository.findByUserName(req.body.username);
+
         let customerLoged;
-        if(customer){
-            customerLoged = await this.loginHelper.verifyPassword(customer, req);
+        if(existingUser.Item){
+            customerLoged = await this.loginHelper.verifyPassword(existingUser.Item, req);
         } else {
             customerLoged = {status: 'USER_DOESNT_EXIST', message: 'Usuario o contraseña incorrecto'};
         }
+
         return customerLoged;
     }
 }

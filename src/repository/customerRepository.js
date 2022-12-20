@@ -15,12 +15,14 @@ class customerRepository extends Interface(baseRepository) {
     }
 
     async findByUserName (userName) {
+        console.log('userName', userName);
+
         const customer = await this.ddb.getItem({
             TableName: this.table,
             Key: {
               'username': {S: userName}
             },
-            ProjectionExpression: 'first_name, last_name, username, favorite_coin'
+            ProjectionExpression: 'first_name, last_name, username, favorite_coin, password'
           }).promise();
 
         return customer;
@@ -33,6 +35,7 @@ class customerRepository extends Interface(baseRepository) {
                 'first_name': params.first_name,
                 'last_name': params.last_name,
                 'username': params.username,
+                'password': params.password,
                 favorite_coin: null
             }
           };

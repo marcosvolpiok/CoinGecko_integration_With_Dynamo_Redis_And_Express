@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const verifyPassword = async (customer, req)=>{
-    const result = await bcrypt.compare(req.body.password, customer.password);
+    const result = await bcrypt.compare(req.body.password, customer.password.S);
     if(result){
         return getToken(customer);
     }else{
@@ -13,9 +13,7 @@ const verifyPassword = async (customer, req)=>{
 
 const getToken = (user) =>{
     const token = jwt.sign({
-            mail: user.mail,
-            idCustomer: user.id,
-            idShop: user.id_shop
+            mail: user.username
         },
         process.env.JWT_KEY,
         { expiresIn:"5256000h"}
@@ -23,7 +21,7 @@ const getToken = (user) =>{
         
     return {
         message: "Auth successful",
-        user: user,
+        user: user.username,
         token : token
     };
     
