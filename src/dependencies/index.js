@@ -1,19 +1,22 @@
 const bcrypt = require('bcrypt');
-const { createClient } = require("redis");
 const loginHelper = require('../helpers/loginHelper');
-const { cacheHelper } = require('../helpers/cacheHelper');
-const cacheHelperOb = new cacheHelper(createClient);
+var AWS = require('aws-sdk');
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+
 
 const customerRepository = require('../repository/customerRepository');
 
 const customerService = require('../services/customerService');
 
-const {Customer, Sequelize, sequelize} = require('../models');
+const customerController = require('../controllers/customerController');
 
-const customerRepositoryOb=new customerRepository(Customer, Sequelize, sequelize, cacheHelperOb);
+
+const customerRepositoryOb=new customerRepository(AWS, config);
 const customerServiceOb = new customerService(customerRepositoryOb, bcrypt, loginHelper);
+const customerControllerOb = new customerController(customerServiceOb);
 
 module.exports = {
-    Sequelize, sequelize,
-    customerServiceOb
+    customerServiceOb,
+    customerControllerOb
 };

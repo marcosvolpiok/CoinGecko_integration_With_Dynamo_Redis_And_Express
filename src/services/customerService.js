@@ -5,12 +5,6 @@ class cartProductService {
         this.loginHelper = loginHelper;
     }
       
-    list = async (req, res) => {
-          const customer=await this.customerRepository.list(req);
-          
-          return customer;
-    }
-
     listByIdUser = async (req, res) => {
         const customer=await this.customerRepository.listByIdUser(req.params.idUser);
         
@@ -18,22 +12,22 @@ class cartProductService {
     }
 
     add = async (req) => {
-        const existingUser = await this.customerRepository.find({where: {mail:req.body.mail}})
-        if(existingUser.length !== 0){
-            return {status: "USER_EXISTS", "message": "The User exists"};
+        const existingUser = await this.customerRepository.findByUserName(req.body.username);
+        
+        if(existingUser.length > 0 && existingUser.Item.length !== 0){
+            console.log(2)
+            return {status: "USER_EXISTS", "message": "The User already exists"};
         }
+
         const hashPassword = await this.bcrypt.hash(req.body.password, 10);
-        const customer=await this.customerRepository.add({
+        await this.customerRepository.add({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             password: hashPassword,
-            mail: req.body.mail,
-            address: req.body.address,
-            phone: req.body.phone,
-            id_shop: req.body.id_shop
+            username: req.body.username,
         });
-        
-        return customer;
+
+        return {status: 'Created'};
     }
 
     update = async (req, res) => {
