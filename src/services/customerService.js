@@ -1,4 +1,4 @@
-class cartProductService {
+class customerService {
     constructor(customerRepository, bcrypt, loginHelper) {
         this.customerRepository=customerRepository;
         this.bcrypt = bcrypt;
@@ -30,12 +30,6 @@ class cartProductService {
         return {status: 'Created'};
     }
 
-    update = async (req, res) => {
-        const customer=await this.customerRepository.update(req.body);
-        
-        return customer;
-    }
-
     login = async (req, res) => {
         const existingUser = await this.customerRepository.findByUserName(req.body.username);
 
@@ -50,4 +44,4 @@ class cartProductService {
     }
 }
 
-module.exports = cartProductService;
+module.exports = customerService;
