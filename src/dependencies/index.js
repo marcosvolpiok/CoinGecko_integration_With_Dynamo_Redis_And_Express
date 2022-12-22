@@ -1,8 +1,12 @@
 const bcrypt = require('bcrypt');
 const loginHelper = require('../helpers/loginHelper');
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
+const { createClient } = require("redis");
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
+require('dotenv').config();
+const { cacheHelper } = require('../helpers/cacheHelper');
+const cacheHelperOb = new cacheHelper(createClient);
 
 
 const customerRepository = require('../repository/customerRepository');
@@ -18,5 +22,6 @@ const customerControllerOb = new customerController(customerServiceOb);
 
 module.exports = {
     customerServiceOb,
-    customerControllerOb
+    customerControllerOb,
+    cacheHelperOb
 };
