@@ -9,13 +9,13 @@ services:
           ports:
             - 6000:6000
           links:
-            - mongo
+            - coingecko_integration_redis
           working_dir: '/usr/src/app'
           command: ['npm', 'start']
           volumes:
             - .:/usr/src/app
-       mongo:
-             container_name: redis
+       coingecko_integration_redis:
+             container_name: coingecko_integration_redis
              image: redis
              volumes:
                - ./data:/data/db
