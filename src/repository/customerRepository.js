@@ -15,8 +15,6 @@ class customerRepository extends Interface(baseRepository) {
     }
 
     async findByUserName (userName) {
-        console.log('userName', userName);
-
         const customer = await this.ddb.getItem({
             TableName: this.table,
             Key: {
