@@ -8,6 +8,6 @@ router.put('/customer/', customerControllerOb.add);
 router.post('/customer/login/', customerControllerOb.login);
 router.get('/cotizations/all/', cotizationControllerOb.list);
 router.post('/cotizations/add/', cotizationControllerOb.add);
-router.get('/cotizations/user/', cotizationControllerOb.listByUser);
+router.get('/cotizations/user/:order', cotizationControllerOb.listByUser);
 
 module.exports = router;

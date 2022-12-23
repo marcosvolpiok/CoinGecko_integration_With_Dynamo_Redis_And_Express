@@ -24,7 +24,7 @@ class cotizationService {
         return {status: 'Created'};
     }
 
-    listByUser = async (res) => {
+    listByUser = async (req, res) => {
         const cotizationsUser = await this.cotizationRepository.getCotizationByUser(res.userData.username);
         let result = [];
 
@@ -39,19 +39,22 @@ class cotizationService {
         //sort
         const resultOrdered = result.sort((a, b)=>{
             const favoriteFiatCoin = 'usd';
-
-            const favoriteCotization = a[Object.keys(a)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
-            const currentCotization = b[Object.keys(b)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
             
             const cotizationA = a[Object.keys(a)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
             const cotizationB = b[Object.keys(b)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
         
-            return cotizationB[0][favoriteFiatCoin].current_price - cotizationA[0][favoriteFiatCoin].current_price;
+            if(req.params.order.toUpperCase() == 'ASC') {
+                return cotizationA[0][favoriteFiatCoin].current_price - cotizationB[0][favoriteFiatCoin].current_price;
+            } else if (req.params.order.toUpperCase() == 'DESC') {
+                return cotizationB[0][favoriteFiatCoin].current_price - cotizationA[0][favoriteFiatCoin].current_price;
+            } else {
+                throw new Error('Order parameter is wrong');
+            }
         })
 
-        
+
         //Limit
-        
+
 
         return resultOrdered;
     }
