@@ -8,7 +8,7 @@ const Joi = require('joi');
 router.put('/customer/', addCustomer, customerControllerOb.add);
 router.post('/customer/login/', customerControllerOb.login);
 router.get('/cotizations/all/', cotizationControllerOb.list);
-router.post('/cotizations/add/', cotizationControllerOb.add);
+router.post('/cotizations/', cotizationControllerOb.add);
 router.get('/cotizations/user/:order/:limit', listByUser, cotizationControllerOb.listByUser);
 
 function addCustomer(req, res, next){
