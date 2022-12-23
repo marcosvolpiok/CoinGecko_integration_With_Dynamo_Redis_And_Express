@@ -22,7 +22,7 @@ const customerRepositoryOb=new customerRepository(AWS, config);
 const customerServiceOb = new customerService(customerRepositoryOb, bcrypt, loginHelper);
 const customerControllerOb = new customerController(customerServiceOb);
 
-const cotizationRepositoryOb=new cotizationRepository(cacheHelperOb);
+const cotizationRepositoryOb=new cotizationRepository(AWS, config, cacheHelperOb);
 const cotizationServiceOb = new cotizationService(cotizationRepositoryOb);
 const cotizationControllerOb = new cotizationController(cotizationServiceOb);
 

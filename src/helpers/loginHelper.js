@@ -13,7 +13,7 @@ const verifyPassword = async (customer, req)=>{
 
 const getToken = (user) =>{
     const token = jwt.sign({
-            mail: user.username
+            username: user.username.S
         },
         process.env.JWT_KEY,
         { expiresIn:"5256000h"}

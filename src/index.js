@@ -3,6 +3,7 @@ const express = require('express'),
     app = express(),
     cors = require('cors');
 const indexRoutes = require('./routes/index');
+const checkAuth = require('./middlewares/checkAuth');
 
 app.use(express.json());
 
@@ -14,6 +15,7 @@ app.use(cors());
 
 // middlewares
 app.use(morgan('dev'));
+app.use(checkAuth);
 
 //Routes
 app.use('/', indexRoutes);

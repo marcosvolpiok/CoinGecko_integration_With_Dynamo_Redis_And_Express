@@ -13,9 +13,8 @@ class customerService {
 
     add = async (req) => {
         const existingUser = await this.customerRepository.findByUserName(req.body.username);
-        
-        if(existingUser.length > 0 && existingUser.Item.length !== 0){
-            console.log(2)
+
+        if(existingUser.Item && Object.keys(existingUser.Item).length){
             return {status: "USER_EXISTS", "message": "The User already exists"};
         }
 
