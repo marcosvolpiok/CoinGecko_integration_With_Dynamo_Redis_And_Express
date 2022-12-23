@@ -16,7 +16,7 @@ class cotizationService {
             return {status: "COTIZATION_EXISTS", "message": "The Cotizaion already exists on this user"};
         }
 
-        const cotizationUser = await this.cotizationRepository.add({
+        await this.cotizationRepository.add({
             userName: res.userData.username,
             coinCode: req.body.coinCode
         });
@@ -51,7 +51,6 @@ class cotizationService {
                 throw new Error('Order parameter is wrong');
             }
         })
-
 
         //Limit
         if(req.params.limit <= 25) {
