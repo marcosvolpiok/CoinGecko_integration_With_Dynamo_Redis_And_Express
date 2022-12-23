@@ -43,6 +43,10 @@ class cotizationService {
             const cotizationA = a[Object.keys(a)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
             const cotizationB = b[Object.keys(b)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
         
+            if(cotizationA.length == 0 && cotizationB.length == 0) {
+                throw new Error('You need to run the bot to fetch favorite coin information');
+            }
+
             if(req.params.order.toUpperCase() == 'ASC') {
                 return cotizationA[0][favoriteFiatCoin].current_price - cotizationB[0][favoriteFiatCoin].current_price;
             } else if (req.params.order.toUpperCase() == 'DESC') {

@@ -25,7 +25,8 @@ class cotizationRepository extends Interface(baseRepository) {
             if(cache) {
                 json[fiatCoin] = JSON.parse(cache);
             } else {
-                throw new Error('You need to run the bot');
+                json[fiatCoin] = {'message': 'You need to run the bot to have information of this coin'};
+                
             }
         });
 

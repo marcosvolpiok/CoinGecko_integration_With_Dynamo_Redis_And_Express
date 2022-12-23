@@ -17,8 +17,20 @@ async function main() {
 
       const responseMarkets = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${fiatCoin}&order=market_cap_desc&per_page=250&page=${i}&sparkline=false`);
       const responseMarketsJson = await responseMarkets.json();
-      responseMarketsSize = responseMarketsJson.length;
-      cache.push(...responseMarketsJson);
+
+      let arrJsonFormat = [];
+      responseMarketsJson.forEach( (response) => {
+        const jsonFormat = {
+          id: response.id,
+          symbol: response.symbol,
+          name: response.name,
+          image: response.image,
+          current_price: response.current_price,
+          last_updated: response.last_updated
+        }
+        arrJsonFormat.push(jsonFormat);
+      });
+      cache.push(...arrJsonFormat);
       await cacheHelperOb.setCache(fiatCoin, JSON.stringify(cache));
       await delay(10000);
     }
