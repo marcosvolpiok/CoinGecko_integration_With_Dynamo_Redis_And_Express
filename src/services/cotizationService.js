@@ -51,15 +51,8 @@ class cotizationService {
                 return cotizationA[0][favoriteFiatCoin].current_price - cotizationB[0][favoriteFiatCoin].current_price;
             } else if (req.params.order.toUpperCase() == 'DESC') {
                 return cotizationB[0][favoriteFiatCoin].current_price - cotizationA[0][favoriteFiatCoin].current_price;
-            } else {
-                throw new Error('Order parameter is wrong');
             }
         })
-
-        //Limit
-        if(req.params.limit <= 25) {
-            throw new Error('Limit parameter is wrong');
-        }
 
         return resultOrdered.slice(0, req.params.limit);
     }

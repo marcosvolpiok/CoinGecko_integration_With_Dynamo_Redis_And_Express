@@ -9,7 +9,7 @@ router.put('/customer/', addCustomer, customerControllerOb.add);
 router.post('/customer/login/', customerControllerOb.login);
 router.get('/cotizations/all/', cotizationControllerOb.list);
 router.post('/cotizations/add/', cotizationControllerOb.add);
-router.get('/cotizations/user/:order/:limit', cotizationControllerOb.listByUser);
+router.get('/cotizations/user/:order/:limit', listByUser, cotizationControllerOb.listByUser);
 
 function addCustomer(req, res, next){
     const schema = Joi.object({
@@ -18,6 +18,14 @@ function addCustomer(req, res, next){
         last_name: Joi.string().max(50).required(),
         username: Joi.string().max(50).required(),
         favorite_fiat_coin: Joi.string().max(50).required(),
+    });
+    validateRequest(req, next, schema);
+}
+
+function listByUser(req, res, next){
+    const schema = Joi.object({
+        order: Joi.string().valid('ASC', 'DESC', 'asc', 'desc').required(),
+        limit: Joi.number().min(26)
     });
     validateRequest(req, next, schema);
 }

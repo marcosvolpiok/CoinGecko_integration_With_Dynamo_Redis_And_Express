@@ -27,6 +27,8 @@ class customerRepository extends Interface(baseRepository) {
     }    
 
     async add (params) {
+        console.log('usernameee', params)
+
         var params = {
             TableName: this.table,
             Item: {
