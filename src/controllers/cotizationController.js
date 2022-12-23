@@ -27,7 +27,7 @@ class cotizationController{
       const cotizations = await this.cotizationService.listByUser(req, res);
       res.json(cotizations);
     }catch(e){
-      res.status(500).json({message: e.message, stack: e.stack})
+      res.status(500).json({message: e.message})
     }
   }
 }

@@ -54,9 +54,11 @@ class cotizationService {
 
 
         //Limit
+        if(req.params.limit <= 25) {
+            throw new Error('Limit parameter is wrong');
+        }
 
-
-        return resultOrdered;
+        return resultOrdered.slice(0, req.params.limit);
     }
 }
 
