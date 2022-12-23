@@ -38,7 +38,7 @@ class cotizationService {
 
         //sort
         const resultOrdered = result.sort((a, b)=>{
-            const favoriteFiatCoin = 'usd';
+            const favoriteFiatCoin = res.userData.favorite_fiat_coin;
             
             const cotizationA = a[Object.keys(a)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);
             const cotizationB = b[Object.keys(b)].filter((coinCotization) => Object.keys(coinCotization) == favoriteFiatCoin);

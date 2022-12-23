@@ -24,6 +24,7 @@ class customerService {
             last_name: req.body.last_name,
             password: hashPassword,
             username: req.body.username,
+            favorite_fiat_coin: req.body.favorite_fiat_coin
         });
 
         return {status: 'Created'};

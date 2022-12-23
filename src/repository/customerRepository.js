@@ -20,7 +20,7 @@ class customerRepository extends Interface(baseRepository) {
             Key: {
               'username': {S: userName}
             },
-            ProjectionExpression: 'first_name, last_name, username, favorite_coin, password'
+            ProjectionExpression: 'first_name, last_name, username, favorite_coin, password, favorite_fiat_coin'
           }).promise();
 
         return customer;
@@ -34,7 +34,7 @@ class customerRepository extends Interface(baseRepository) {
                 'last_name': params.last_name,
                 'username': params.username,
                 'password': params.password,
-                favorite_coin: null
+                'favorite_fiat_coin': params.favorite_fiat_coin
             }
           };
           const result = await this.docClient.put(params).promise();
