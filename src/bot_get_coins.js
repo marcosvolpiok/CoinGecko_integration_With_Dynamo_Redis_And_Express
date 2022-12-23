@@ -7,6 +7,8 @@ const {
 async function main() {
   await asyncForEach(fiatCoins, async (fiatCoin) => {
     let responseMarketsSize = 1;
+    await cacheHelperOb.setCache(fiatCoin, '');
+
     for(i=1; responseMarketsSize > 0; i++){
       let cache = await cacheHelperOb.getCache(fiatCoin);
       if(cache) {
@@ -17,6 +19,7 @@ async function main() {
 
       const responseMarkets = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${fiatCoin}&order=market_cap_desc&per_page=250&page=${i}&sparkline=false`);
       const responseMarketsJson = await responseMarkets.json();
+      responseMarketsSize = responseMarketsJson.length;
 
       let arrJsonFormat = [];
       responseMarketsJson.forEach( (response) => {
