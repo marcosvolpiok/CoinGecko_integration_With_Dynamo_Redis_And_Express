@@ -3,15 +3,6 @@ class customerController{
     this.customerService=customerService;
   }
 
-  listByIdUser = async (req, res) => { 
-    try{
-      const customer=await this.customerService.listByIdUser(req);
-      res.json(customer);
-    }catch(e){
-      res.status(500).json({message: e.message})
-    }
-  }
-
   add = async (req, res) => { 
     try{
       const customer=await this.customerService.add(req);

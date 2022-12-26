@@ -4,12 +4,7 @@ class customerService {
         this.bcrypt = bcrypt;
         this.loginHelper = loginHelper;
     }
-      
-    listByIdUser = async (req, res) => {
-        const customer=await this.customerRepository.listByIdUser(req.params.idUser);
-        
-        return customer;
-    }
+
 
     add = async (req) => {
         const existingUser = await this.customerRepository.findByUserName(req.body.username);
